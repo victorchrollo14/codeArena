@@ -1,0 +1,127 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id         Int          @id @default(autoincrement())
+  username   String?
+  email      String       @unique
+  gender     String?
+  address    String?
+  birth      DateTime?
+  password   String?
+  github     String?
+  website    String?
+  x          String?
+  linkedIn   String?
+  skills     String[]
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
+  Submission Submission[]
+  Solution   Solution[]
+  Education  Education[]
+  Experience Experience[]
+}
+
+model Problem {
+  id           Int            @id @default(autoincrement())
+  title        String         @db.VarChar(255)
+  description  String         @db.Text
+  level        Level
+  status       Status         @default(TODO)
+  tags         String[]
+  editorial    String         @db.Text
+  testCases    Json[]
+  memoryLimit  Int // in bytes
+  timeLimit    Int // in seconds 
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  Submission   Submission[]
+  Solution     Solution[]
+  CodeTemplate CodeTemplate[]
+}
+
+model Submission {
+  id          Int              @id @default(autoincrement())
+  problemId   Int
+  userId      Int
+  language    Language
+  status      SubmissionStatus
+  runTime     Int // time in seconds
+  memoryUsage Int // size in bytes 
+  user        User             @relation(fields: [userId], references: [id])
+  problem     Problem          @relation(fields: [problemId], references: [id])
+}
+
+model Solution {
+  id        Int      @id @default(autoincrement())
+  problemId Int
+  userId    Int
+  content   String   @db.Text
+  tags      String[]
+  views     Int      @default(0)
+  upvotes   Int      @default(0)
+  user      User     @relation(fields: [userId], references: [id])
+  problem   Problem  @relation(fields: [problemId], references: [id])
+}
+
+model Experience {
+  id        Int      @id @default(autoincrement())
+  company   String
+  title     String
+  startDate DateTime
+  endDate   String
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id])
+}
+
+model Education {
+  id        Int      @id @default(autoincrement())
+  school    String
+  degree    String
+  startDate DateTime
+  endDate   String
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id])
+}
+
+model CodeTemplate {
+  id        Int      @id @default(autoincrement())
+  lang      Language
+  code      String   @db.Text
+  problemId Int
+  problem   Problem  @relation(fields: [problemId], references: [id])
+}
+
+enum Level {
+  EASY
+  MEDIUM
+  HARD
+}
+
+enum Status {
+  TODO
+  ATTEMPTED
+  SOLVED
+}
+
+enum Language {
+  PYTHON
+  GO
+  JAVASCRIPT
+  TYPESCRIPT
+}
+
+enum SubmissionStatus {
+  ACCEPTED
+  INTERNAL_ERROR
+  TIME_LIMIT_EXCEEDED
+  MEMORY_LIMIT_EXCEEDED
+  RUNTIME_ERROR
+  WRONG_ANSWER
+}
