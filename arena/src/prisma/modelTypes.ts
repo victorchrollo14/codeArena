@@ -34,7 +34,7 @@ export interface Problems {
   title: string;
   description: string;
   level: "easy" | "difficult" | "medium";
-  status: "todo" | "attempted" | "solved";
+  // status: "todo" | "attempted" | "solved";
   tags: string[];
   editorial: string; // main solution;
   testCases: {
@@ -47,7 +47,8 @@ export interface Problems {
       | Array<string | boolean | number>;
   }[];
   memoryLimit: string;
-  timeLimit: string;
+  runTimeLimit: string;
+  compileTimeLimit: string;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -82,6 +83,31 @@ export interface Solution {
   createdAt: Date;
   updatedAt: Date;
 }
+
+export const CodeExecOutput = {
+  jobId: "runcode_timestamp_zHyowjshlk",
+  language: "python",
+  run: [
+    {
+      testcase: { arg: [2, 3, 5], expectedOutput: 9 },
+      actualOutput: [1, 2],
+      codeOutput: ["hello", "123", "[1,2]"],
+      codeError: ["wrong answer"],
+    },
+    {
+      testcase: { arg: [2, 3, 5], expectedOutput: [1, 2] },
+      actualOutput: [1, 2],
+      codeOutput: ["hello", "123", "[1,2]"],
+      codeError: ["wrong answer"],
+    },
+  ],
+  totalCorrect: 3,
+  totalTestCases: 3,
+  timeTaken: 0.25,
+  memoryUsage: 234234,
+  status_message: "Accepted",
+  state: "SUCCESS", // success | pending | failed
+};
 
 // export interface TemporaryCode {
 //   id: number;
