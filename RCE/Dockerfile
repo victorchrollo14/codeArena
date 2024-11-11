@@ -6,4 +6,4 @@ WORKDIR /app
 COPY ./requirements.txt .
 RUN pip3 install -r requirements.txt --break-system-packages 
 
-CMD ["python3", "-u", "main.py"]
+CMD ["py-hot-reload", "--ignore-patterns='*/app.py'", "main.py"]

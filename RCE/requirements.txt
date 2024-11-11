@@ -1,2 +1,4 @@
 pika
 docker
+py-hot-reload
+black

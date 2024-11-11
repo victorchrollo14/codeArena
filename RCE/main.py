@@ -15,6 +15,7 @@ def main():
             testcases = data["testcases"]
             codeinstance = Execution(language, code, testcases)
 
+            codeinstance.createCode()
             ch.basic_ack(delivery_tag=method.delivery_tag)
         except Exception as e:
             print("some error occured", e)
