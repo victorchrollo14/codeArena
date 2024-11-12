@@ -91,7 +91,7 @@ export const CodeExecOutput = {
     {
       testcase: { arg: [2, 3, 5], expectedOutput: 9 },
       actualOutput: [1, 2],
-      codeOutput: ["hello", "123", "[1,2]"],
+      codeOutput: ["hello\n 12", "123", "[1,2]"],
       codeError: ["wrong answer"],
     },
     {
