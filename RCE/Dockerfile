@@ -6,4 +6,4 @@ WORKDIR /app
 COPY ./requirements.txt .
 RUN pip3 install -r requirements.txt --break-system-packages 
 
-CMD ["python3", "-u", "main.py"]
+CMD ["python3", "-u", "-m", "jurigged", "-v", "main.py", "execution.py"]

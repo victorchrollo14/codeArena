@@ -2,7 +2,9 @@ import pika
 import os
 import sys
 import json
+from pprint import pprint
 
+import subprocess
 from execution import Execution
 
 
@@ -10,13 +12,29 @@ def main():
     def on_message(ch, method, properties, body):
         try:
             data = json.loads(body)
+            submission_id = data["submissionId"]
             language = data["language"]
             code = data["code"]
             testcases = data["testcases"]
-            codeinstance = Execution(language, code, testcases)
+            compile_timeout = data["compileTimeout"]
+            memory_limit = data["memoryLimit"]
+            run_timeout = data["runTimeout"]
+
+            codeinstance = Execution(
+                submission_id,
+                language,
+                code,
+                testcases,
+                compile_timeout,
+                run_timeout,
+                memory_limit,
+            )
 
             codeinstance.createCode()
-            codeinstance.run()
+            output = codeinstance.run()
+            pprint(output)
+
+            os.system("rm -rf ./temp_code/*")
             ch.basic_ack(delivery_tag=method.delivery_tag)
         except Exception as e:
             print("some error occured", e)

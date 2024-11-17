@@ -7,8 +7,9 @@ print(f"sending message = {message}")
 
 code = "def twoSum(nums, target):\n        for i in range(len(nums)):\n            for j in range(i + 1, len(nums)):\n                if nums[j] == target - nums[i]:\n                    return [i, j]\n        # Return an empty list if no solution is found\n        return []"
 
+code_error = "def twoSum(nums, target):\n        for i in range(len(nums)):\n            for j in range(i + 1, len(nums - 1)):\n                if nums[j] == target - nums[i]:\n                    return [i, j]\n        # Return an empty list if no solution is found\n        return []\n        "
 new_message = {
-    "id": "user_1234",
+    "submissionId": "user_1234",
     "language": "python",
     "code": str(code),
     "testcases": [
