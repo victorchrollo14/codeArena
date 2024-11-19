@@ -33,7 +33,6 @@ model Problem {
   title        String         @db.VarChar(255)
   description  String         @db.Text
   level        Level
-  status       Status         @default(TODO)
   tags         String[]
   editorial    String         @db.Text
   testCases    Json[]
@@ -43,7 +42,7 @@ model Problem {
   updatedAt    DateTime       @updatedAt
   Submission   Submission[]
   Solution     Solution[]
-  CodeTemplate CodeTemplate[]
+  codeSnippets CodeSnippets[]
 }
 
 model Submission {
@@ -90,7 +89,7 @@ model Education {
   user      User     @relation(fields: [userId], references: [id])
 }
 
-model CodeTemplate {
+model CodeSnippets {
   id        Int      @id @default(autoincrement())
   lang      Language
   code      String   @db.Text

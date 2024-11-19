@@ -31,6 +31,18 @@ new_message = {
     "memoryLimit": 256 * 1024,
 }
 
+test1 = {
+    "submissionId": "runcode_rahluyou723hl_hslhsl",
+    "language": "python",
+    "code": "def twoSum(nums, target):\n        for i in range(len(nums)):\n            for j in range(i + 1, len(nums)):\n                if nums[j] == target - nums[i]:\n                    return [i, j]\n        # Return an empty list if no solution is found\n        return []",
+    "testcases": ["[2, 7, 11, 15]\n9", "[3, 2, 4]\n6", "[3, 3]\n6"],
+    "expected_output": "[0, 1]\n[1, 2]\n[0, 1]",
+    "compileTimeout": 2000,
+    "runTimeout": 4000,
+    "memoryLimit": 536870912,
+    "codeSnippet": "def twoSum(self, nums: List[int], target: int) -> List[int]:\n        ",
+}
+
 connection = pika.BlockingConnection(pika.ConnectionParameters("localhost"))
 channel = connection.channel()
 
@@ -38,7 +50,7 @@ channel.queue_declare(queue="arena_rce_queue", durable=True)
 channel.basic_publish(
     exchange="",
     routing_key="arena_rce_queue",
-    body=json.dumps(new_message),
+    body=json.dumps(test1),
     properties=pika.BasicProperties(
         delivery_mode=pika.DeliveryMode.Persistent
     ),

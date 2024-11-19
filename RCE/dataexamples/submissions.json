@@ -1,0 +1,167 @@
+{
+  "two-sum": {
+    "submissionId": "runcode_rahluyou723hl_hslhsl",
+    "language": "python",
+    "code": "def twoSum(nums, target):\n        for i in range(len(nums)):\n            for j in range(i + 1, len(nums)):\n                if nums[j] == target - nums[i]:\n                    return [i, j]\n        # Return an empty list if no solution is found\n        return []",
+    "testcases": ["[2, 7, 11, 15]\n9", "[3, 2, 4]\n6", "[3, 3]\n6"],
+    "expected_output": "[0, 1]\n[1, 2]\n[0, 1]",
+    "compileTimeout": 2000,
+    "runTimeout": 4000,
+    "memoryLimit": 536870912,
+    "codeSnippet": "def twoSum(self, nums: List[int], target: int) -> List[int]:\n        "
+  },
+  "merge-two-list": {
+    "submissionId": "runcode_21_merge_two_sorted_lists",
+    "language": "python",
+    "code": "def mergeTwoLists(l1, l2):\n    dummy = ListNode(0)\n    current = dummy\n    while l1 and l2:\n        if l1.val < l2.val:\n            current.next = l1\n            l1 = l1.next\n        else:\n            current.next = l2\n            l2 = l2.next\n        current = current.next\n    current.next = l1 if l1 else l2\n    return dummy.next",
+    "testcases": ["[1, 2, 4]\n[1, 3, 4]", "[]\n[]", "[]\n[0]"],
+    "expected_output": "[1, 1, 2, 3, 4, 4]\n[]\n[0]",
+    "compileTimeout": 2000,
+    "runTimeout": 4000,
+    "memoryLimit": 536870912,
+    "codeSnippet": "def mergeTwoLists(self, l1: ListNode, l2: ListNode) -> ListNode:\n        "
+  },
+  "climbing-stairs": {
+    "submissionId": "runcode_climbing_stairs",
+    "language": "python",
+    "code": "def climbStairs(n):\n    if n == 1:\n        return 1\n    first, second = 1, 2\n    for i in range(3, n + 1):\n        first, second = second, first + second\n    return second",
+    "testcases": ["2", "3", "4"],
+    "expected_output": "2\n3\n5",
+    "compileTimeout": 2000,
+    "runTimeout": 4000,
+    "memoryLimit": 536870912,
+    "codeSnippet": "def climbStairs(self, n: int) -> int:\n        "
+  },
+  "pascalTriangle": {
+    "submissionId": "runcode_pascals_triangle",
+    "language": "python",
+    "code": "def generate(numRows):\n    triangle = []\n    for row_num in range(numRows):\n        row = [1] * (row_num + 1)\n        for j in range(1, row_num):\n            row[j] = triangle[row_num - 1][j - 1] + triangle[row_num - 1][j]\n        triangle.append(row)\n    return triangle",
+    "testcases": ["5", "1", "0"],
+    "expected_output": "[[1], [1, 1], [1, 2, 1], [1, 3, 3, 1], [1, 4, 6, 4, 1]]\n[[1]]\n[]",
+    "compileTimeout": 2000,
+    "runTimeout": 4000,
+    "memoryLimit": 536870912,
+    "codeSnippet": "def generate(self, numRows: int) -> List[List[int]]:\n        "
+  },
+  "linked-list-cycle": {
+    "submissionId": "runcode_linked_list_cycle",
+    "language": "python",
+    "code": "def hasCycle(head):\n    slow = fast = head\n    while fast and fast.next:\n        slow = slow.next\n        fast = fast.next.next\n        if slow == fast:\n            return True\n    return False",
+    "testcases": ["[3,2,0,-4]\n1", "[1,2]\n0", "[1]\n-1"],
+    "expected_output": "true\ntrue\nfalse",
+    "compileTimeout": 2000,
+    "runTimeout": 4000,
+    "memoryLimit": 536870912,
+    "codeSnippet": "def hasCycle(self, head: ListNode) -> bool:\n        "
+  },
+  "longest-substring-without-repeating-char": {
+    "submissionId": "runcode_longest_substring_without_repeating_characters",
+    "language": "python",
+    "code": "def lengthOfLongestSubstring(s):\n    char_map = {}\n    left = 0\n    max_len = 0\n    for right, char in enumerate(s):\n        if char in char_map and char_map[char] >= left:\n            left = char_map[char] + 1\n        char_map[char] = right\n        max_len = max(max_len, right - left + 1)\n    return max_len",
+    "testcases": ["abcabcbb", "bbbbb", "pwwkew"],
+    "expected_output": "3\n1\n3",
+    "compileTimeout": 2000,
+    "runTimeout": 4000,
+    "memoryLimit": 536870912,
+    "codeSnippet": "def lengthOfLongestSubstring(self, s: str) -> int:\n        "
+  },
+  "zig-zag-convertion": {
+    "submissionId": "runcode_zigzag_conversion",
+    "language": "python",
+    "code": "def convert(s, numRows):\n    if numRows == 1 or numRows >= len(s):\n        return s\n    zigzag = [''] * numRows\n    row, step = 0, 1\n    for char in s:\n        zigzag[row] += char\n        if row == 0:\n            step = 1\n        elif row == numRows - 1:\n            step = -1\n        row += step\n    return ''.join(zigzag)",
+    "testcases": ["PAYPALISHIRING\n3", "PAYPALISHIRING\n4", "A\n1"],
+    "expected_output": "PAHNAPLSIIGYIR\nPINALSIGYAHRPI\nA",
+    "compileTimeout": 2000,
+    "runTimeout": 4000,
+    "memoryLimit": 536870912,
+    "codeSnippet": "def convert(self, s: str, numRows: int) -> str:\n        "
+  },
+  "container-most-water": {
+    "submissionId": "runcode_container_with_most_water",
+    "language": "python",
+    "code": "def maxArea(height):\n    left, right = 0, len(height) - 1\n    max_area = 0\n    while left < right:\n        width = right - left\n        max_area = max(max_area, min(height[left], height[right]) * width)\n        if height[left] < height[right]:\n            left += 1\n        else:\n            right -= 1\n    return max_area",
+    "testcases": ["[1,8,6,2,5,4,8,3,7]", "[1,1]", "[4,3,2,1,4]"],
+    "expected_output": "49\n1\n16",
+    "compileTimeout": 2000,
+    "runTimeout": 4000,
+    "memoryLimit": 536870912,
+    "codeSnippet": "def maxArea(self, height: List[int]) -> int:\n        "
+  },
+  "swap-nodes-in-pairs": {
+    "submissionId": "runcode_swap_nodes_in_pairs",
+    "language": "python",
+    "code": "def swapPairs(head):\n    dummy = ListNode(0)\n    dummy.next = head\n    prev, current = dummy, head\n    while current and current.next:\n        nxt = current.next\n        current.next = nxt.next\n        nxt.next = current\n        prev.next = nxt\n        prev = current\n        current = current.next\n    return dummy.next",
+    "testcases": ["[1,2,3,4]", "[]", "[1]"],
+    "expected_output": "[2,1,4,3]\n[]\n[1]",
+    "compileTimeout": 2000,
+    "runTimeout": 4000,
+    "memoryLimit": 536870912,
+    "codeSnippet": "def swapPairs(self, head: ListNode) -> ListNode:\n        "
+  },
+  "valid-sudoku": {
+    "submissionId": "runcode_valid_sudoku",
+    "language": "python",
+    "code": "def isValidSudoku(board):\n    rows = collections.defaultdict(set)\n    cols = collections.defaultdict(set)\n    squares = collections.defaultdict(set)  # key: (r /3, c /3)\n\n    for r in range(9):\n        for c in range(9):\n            if board[r][c] == '.':\n                continue\n            if (board[r][c] in rows[r] or\n                board[r][c] in cols[c] or\n                board[r][c] in squares[(r // 3, c // 3)]):\n                return False\n            rows[r].add(board[r][c])\n            cols[c].add(board[r][c])\n            squares[(r // 3, c // 3)].add(board[r][c])\n    return True",
+    "testcases": "[[\"5\",\"3\",\".\",\".\",\"7\",\".\",\".\",\".\",\".\"],[\"6\",\".\",\".\",\"1\",\"9\",\"5\",\".\",\".\",\".\"],[\".\",\"9\",\"8\",\".\",\".\",\".\",\".\",\"6\",\".\"],[\"8\",\".\",\".\",\".\",\"6\",\".\",\".\",\".\",\"3\"],[\"4\",\".\",\".\",\"8\",\".\",\"3\",\".\",\".\",\"1\"],[\"7\",\".\",\".\",\".\",\"2\",\".\",\".\",\".\",\"6\"],[\".\",\"6\",\".\",\".\",\".\",\".\",\"2\",\"8\",\".\"],[\".\",\".\",\".\",\"4\",\"1\",\"9\",\".\",\".\",\"5\"],[\".\",\".\",\".\",\".\",\"8\",\".\",\".\",\"7\",\"9\"]]",
+    "expected_output": "true",
+    "compileTimeout": 2000,
+    "runTimeout": 4000,
+    "memoryLimit": 536870912,
+    "codeSnippet": "def isValidSudoku(self, board: List[List[str]]) -> bool:\n        "
+  },
+  "median-two-sorted": {
+    "submissionId": "runcode_median_of_two_sorted_arrays",
+    "language": "python",
+    "code": "def findMedianSortedArrays(nums1, nums2):\n    nums = sorted(nums1 + nums2)\n    n = len(nums)\n    if n % 2 == 0:\n        return (nums[n//2 - 1] + nums[n//2]) / 2\n    else:\n        return nums[n//2]",
+    "testcases": ["[1, 3]\n[2]", "[1, 2]\n[3, 4]", "[0, 0]\n[0, 0]"],
+    "expected_output": "2.0\n2.5\n0.0",
+    "compileTimeout": 2000,
+    "runTimeout": 4000,
+    "memoryLimit": 536870912,
+    "codeSnippet": "def findMedianSortedArrays(self, nums1: List[int], nums2: List[int]) -> float:\n        "
+  },
+  "regex-matching": {
+    "submissionId": "runcode_regular_expression_matching",
+    "language": "python",
+    "code": "def isMatch(s, p):\n    dp = [[False] * (len(p) + 1) for _ in range(len(s) + 1)]\n    dp[0][0] = True\n    for i in range(1, len(p) + 1):\n        if p[i - 1] == '*':\n            dp[0][i] = dp[0][i - 2]\n    for i in range(1, len(s) + 1):\n        for j in range(1, len(p) + 1):\n            if p[j - 1] in {s[i - 1], '.'}:\n                dp[i][j] = dp[i - 1][j - 1]\n            elif p[j - 1] == '*':\n                dp[i][j] = dp[i][j - 2] or (p[j - 2] in {s[i - 1], '.'} and dp[i - 1][j])\n    return dp[-1][-1]",
+    "testcases": ["aa\na", "aa\na*", "ab\n.*"],
+    "expected_output": "false\ntrue\ntrue",
+    "compileTimeout": 2000,
+    "runTimeout": 4000,
+    "memoryLimit": 536870912,
+    "codeSnippet": "def isMatch(self, s: str, p: str) -> bool:\n        "
+  },
+  "wildcard-matching": {
+    "submissionId": "runcode_wildcard_matching",
+    "language": "python",
+    "code": "def isMatch(s, p):\n    s_len, p_len = len(s), len(p)\n    dp = [[False] * (p_len + 1) for _ in range(s_len + 1)]\n    dp[0][0] = True\n    for j in range(1, p_len + 1):\n        if p[j - 1] == '*':\n            dp[0][j] = dp[0][j - 1]\n    for i in range(1, s_len + 1):\n        for j in range(1, p_len + 1):\n            if p[j - 1] in {s[i - 1], '?'}:\n                dp[i][j] = dp[i - 1][j - 1]\n            elif p[j - 1] == '*':\n                dp[i][j] = dp[i - 1][j] or dp[i][j - 1]\n    return dp[s_len][p_len]",
+    "testcases": ["aa\na", "aa\n*", "cb\n?a"],
+    "expected_output": "false\ntrue\nfalse",
+    "compileTimeout": 2000,
+    "runTimeout": 4000,
+    "memoryLimit": 536870912,
+    "codeSnippet": "def isMatch(self, s: str, p: str) -> bool:\n        "
+  },
+  "permutation-sequence": {
+    "submissionId": "runcode_permutation_sequence",
+    "language": "python",
+    "code": "def getPermutation(n, k):\n    nums = list(range(1, n + 1))\n    k -= 1\n    fact = [1] * n\n    for i in range(1, n):\n        fact[i] = fact[i - 1] * i\n    res = []\n    for i in range(n, 0, -1):\n        idx = k // fact[i - 1]\n        res.append(nums.pop(idx))\n        k %= fact[i - 1]\n    return ''.join(map(str, res))",
+    "testcases": ["3\n3", "4\n9", "3\n1"],
+    "expected_output": "213\n2314\n123",
+    "compileTimeout": 2000,
+    "runTimeout": 4000,
+    "memoryLimit": 536870912,
+    "codeSnippet": "def getPermutation(self, n: int, k: int) -> str:\n        "
+  },
+  "countDigitOne": {
+    "submissionId": "runcode_number_of_digit_one",
+    "language": "python",
+    "code": "def countDigitOne(n):\n    count = 0\n    i = 1\n    while i <= n:\n        divider = i * 10\n        count += (n // divider) * i + min(max(n % divider - i + 1, 0), i)\n        i *= 10\n    return count",
+    "testcases": ["13", "0", "100"],
+    "expected_output": "6\n0\n21",
+    "compileTimeout": 2000,
+    "runTimeout": 4000,
+    "memoryLimit": 536870912,
+    "codeSnippet": "def countDigitOne(self, n: int) -> int:\n        "
+  }
+}
