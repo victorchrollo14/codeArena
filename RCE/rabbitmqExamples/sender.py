@@ -1,47 +1,15 @@
 import pika
 import sys
 import json
+from testData import questions
 
-message = sys.argv[1]
-print(f"sending message = {message}")
+num = sys.argv[1]
 
-code = "def twoSum(nums, target):\n        for i in range(len(nums)):\n            for j in range(i + 1, len(nums)):\n                if nums[j] == target - nums[i]:\n                    return [i, j]\n        # Return an empty list if no solution is found\n        return []"
+print(type(num), int(num))
+if int(num) < 1 or int(num) > 15:
+    raise Exception("Invalid input parameter, questions are from 1 to 15")
+    exit(-1)
 
-code_error = "def twoSum(nums, target):\n        for i in range(len(nums)):\n            for j in range(i + 1, len(nums - 1)):\n                if nums[j] == target - nums[i]:\n                    return [i, j]\n        # Return an empty list if no solution is found\n        return []\n        "
-new_message = {
-    "submissionId": "user_1234",
-    "language": "python",
-    "code": str(code),
-    "testcases": [
-        {
-            "arg": {"nums": [2, 7, 11, 15], "target": 9},
-            "expectedOutput": [0, 1],
-        },
-        {
-            "arg": {"nums": [3, 2, 4], "target": 6},
-            "expectedOutput": [1, 2],
-        },
-        {
-            "arg": {"nums": [3, 3], "target": 6},
-            "expectedOutput": [0, 1],
-        },
-    ],
-    "compileTimeout": 5000,
-    "runTimeout": 5000,
-    "memoryLimit": 256 * 1024,
-}
-
-test1 = {
-    "submissionId": "runcode_rahluyou723hl_hslhsl",
-    "language": "python",
-    "code": "def twoSum(nums, target):\n        for i in range(len(nums)):\n            for j in range(i + 1, len(nums)):\n                if nums[j] == target - nums[i]:\n                    return [i, j]\n        # Return an empty list if no solution is found\n        return []",
-    "testcases": ["[2, 7, 11, 15]\n9", "[3, 2, 4]\n6", "[3, 3]\n6"],
-    "expected_output": "[0, 1]\n[1, 2]\n[0, 1]",
-    "compileTimeout": 2000,
-    "runTimeout": 4000,
-    "memoryLimit": 536870912,
-    "codeSnippet": "def twoSum(self, nums: List[int], target: int) -> List[int]:\n        ",
-}
 
 connection = pika.BlockingConnection(pika.ConnectionParameters("localhost"))
 channel = connection.channel()
@@ -50,7 +18,7 @@ channel.queue_declare(queue="arena_rce_queue", durable=True)
 channel.basic_publish(
     exchange="",
     routing_key="arena_rce_queue",
-    body=json.dumps(test1),
+    body=json.dumps(questions.get(num)),
     properties=pika.BasicProperties(
         delivery_mode=pika.DeliveryMode.Persistent
     ),

@@ -4,7 +4,7 @@ import sys
 import json
 from pprint import pprint
 
-import subprocess
+import traceback
 from execution import Execution
 
 
@@ -15,16 +15,21 @@ def main():
             submission_id = data["submissionId"]
             language = data["language"]
             code = data["code"]
+            expected_answer = data["expectedAnswer"]
             testcases = data["testcases"]
             compile_timeout = data["compileTimeout"]
             memory_limit = data["memoryLimit"]
             run_timeout = data["runTimeout"]
+            code_snippet = data["codeSnippet"]
 
+            print(f"\n\nsubmission code: {submission_id}")
             codeinstance = Execution(
                 submission_id,
                 language,
                 code,
+                code_snippet,
                 testcases,
+                expected_answer,
                 compile_timeout,
                 run_timeout,
                 memory_limit,
@@ -33,23 +38,35 @@ def main():
             codeinstance.createCode()
             output = codeinstance.run()
             pprint(output)
+            print("\n\n")
 
-            os.system("rm -rf ./temp_code/*")
+            # os.system("rm -rf ./temp_code/*")
             ch.basic_ack(delivery_tag=method.delivery_tag)
         except Exception as e:
             print("some error occured", e)
+            traceback.print_exc()
 
-    connection = pika.BlockingConnection(pika.ConnectionParameters("rabbitmq"))
-    channel = connection.channel()
+    try:
+        connection = pika.BlockingConnection(
+            pika.ConnectionParameters("rabbitmq")
+        )
+        channel = connection.channel()
 
-    channel.queue_declare(queue="arena_rce_queue", durable=True)
+        channel.queue_declare(queue="arena_rce_queue", durable=True)
 
-    channel.basic_consume(
-        queue="arena_rce_queue", on_message_callback=on_message, auto_ack=False
-    )
+        channel.basic_consume(
+            queue="arena_rce_queue",
+            on_message_callback=on_message,
+            auto_ack=False,
+        )
 
-    print(" [*] Waiting for messages. To exit press CTRL+C")
-    channel.start_consuming()
+        print(" [*] Waiting for messages. To exit press CTRL+C")
+        channel.start_consuming()
+    except Exception as err:
+        print(err)
+        print(
+            "some error occured while establishing connection, check if rabbitmq is up and runnin"
+        )
 
 
 if __name__ == "__main__":

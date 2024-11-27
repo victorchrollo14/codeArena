@@ -1,10 +1,21 @@
 {
+  "climbing-stairs": {
+    "submissionId": "runcode_climbing_stairs",
+    "language": "python",
+    "code": "def climbstairs(n):\n    if n == 1:\n        return 1\n    first, second = 1, 2\n    for i in range(3, n + 1):\n        first, second = second, first + second\n    return second",
+    "testcases": ["2", "3", "4"],
+    "expected_output": ["2", "3", "5"],
+    "compileTimeout": 2000,
+    "runTimeout": 4000,
+    "memoryLimit": 536870912,
+    "codeSnippet": "def climbstairs(self, n: int) -> int:\n        "
+  },
   "two-sum": {
     "submissionId": "runcode_rahluyou723hl_hslhsl",
     "language": "python",
     "code": "def twoSum(nums, target):\n        for i in range(len(nums)):\n            for j in range(i + 1, len(nums)):\n                if nums[j] == target - nums[i]:\n                    return [i, j]\n        # Return an empty list if no solution is found\n        return []",
     "testcases": ["[2, 7, 11, 15]\n9", "[3, 2, 4]\n6", "[3, 3]\n6"],
-    "expected_output": "[0, 1]\n[1, 2]\n[0, 1]",
+    "expected_output": ["[0, 1]", "[1, 2]", "[0, 1]"],
     "compileTimeout": 2000,
     "runTimeout": 4000,
     "memoryLimit": 536870912,
@@ -15,22 +26,11 @@
     "language": "python",
     "code": "def mergeTwoLists(l1, l2):\n    dummy = ListNode(0)\n    current = dummy\n    while l1 and l2:\n        if l1.val < l2.val:\n            current.next = l1\n            l1 = l1.next\n        else:\n            current.next = l2\n            l2 = l2.next\n        current = current.next\n    current.next = l1 if l1 else l2\n    return dummy.next",
     "testcases": ["[1, 2, 4]\n[1, 3, 4]", "[]\n[]", "[]\n[0]"],
-    "expected_output": "[1, 1, 2, 3, 4, 4]\n[]\n[0]",
+    "expected_output": ["[1, 1, 2, 3, 4, 4]", "[]", "[0]"],
     "compileTimeout": 2000,
     "runTimeout": 4000,
     "memoryLimit": 536870912,
     "codeSnippet": "def mergeTwoLists(self, l1: ListNode, l2: ListNode) -> ListNode:\n        "
-  },
-  "climbing-stairs": {
-    "submissionId": "runcode_climbing_stairs",
-    "language": "python",
-    "code": "def climbStairs(n):\n    if n == 1:\n        return 1\n    first, second = 1, 2\n    for i in range(3, n + 1):\n        first, second = second, first + second\n    return second",
-    "testcases": ["2", "3", "4"],
-    "expected_output": "2\n3\n5",
-    "compileTimeout": 2000,
-    "runTimeout": 4000,
-    "memoryLimit": 536870912,
-    "codeSnippet": "def climbStairs(self, n: int) -> int:\n        "
   },
   "pascalTriangle": {
     "submissionId": "runcode_pascals_triangle",
@@ -98,10 +98,11 @@
     "memoryLimit": 536870912,
     "codeSnippet": "def swapPairs(self, head: ListNode) -> ListNode:\n        "
   },
+
   "valid-sudoku": {
     "submissionId": "runcode_valid_sudoku",
     "language": "python",
-    "code": "def isValidSudoku(board):\n    rows = collections.defaultdict(set)\n    cols = collections.defaultdict(set)\n    squares = collections.defaultdict(set)  # key: (r /3, c /3)\n\n    for r in range(9):\n        for c in range(9):\n            if board[r][c] == '.':\n                continue\n            if (board[r][c] in rows[r] or\n                board[r][c] in cols[c] or\n                board[r][c] in squares[(r // 3, c // 3)]):\n                return False\n            rows[r].add(board[r][c])\n            cols[c].add(board[r][c])\n            squares[(r // 3, c // 3)].add(board[r][c])\n    return True",
+    "code": "def isValidSudoku(board):\n    rows = collections.defaultdict(set)\n    cols = collections.defaultdict(set)\n    squares = collections.defaultdict(set)\n\n    for r in range(9):\n        for c in range(9):\n            if board[r][c] == '.':\n                continue\n            if (board[r][c] in rows[r] or\n                board[r][c] in cols[c] or\n                board[r][c] in squares[(r // 3, c // 3)]):\n                return False\n            rows[r].add(board[r][c])\n            cols[c].add(board[r][c])\n            squares[(r // 3, c // 3)].add(board[r][c])\n    return True",
     "testcases": "[[\"5\",\"3\",\".\",\".\",\"7\",\".\",\".\",\".\",\".\"],[\"6\",\".\",\".\",\"1\",\"9\",\"5\",\".\",\".\",\".\"],[\".\",\"9\",\"8\",\".\",\".\",\".\",\".\",\"6\",\".\"],[\"8\",\".\",\".\",\".\",\"6\",\".\",\".\",\".\",\"3\"],[\"4\",\".\",\".\",\"8\",\".\",\"3\",\".\",\".\",\"1\"],[\"7\",\".\",\".\",\".\",\"2\",\".\",\".\",\".\",\"6\"],[\".\",\"6\",\".\",\".\",\".\",\".\",\"2\",\"8\",\".\"],[\".\",\".\",\".\",\"4\",\"1\",\"9\",\".\",\".\",\"5\"],[\".\",\".\",\".\",\".\",\"8\",\".\",\".\",\"7\",\"9\"]]",
     "expected_output": "true",
     "compileTimeout": 2000,
