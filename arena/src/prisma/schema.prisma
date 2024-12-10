@@ -15,6 +15,8 @@ model User {
   address    String?
   birth      DateTime?
   password   String?
+  normalAuth Boolean
+  githubAuth Boolean
   github     String?
   website    String?
   x          String?
@@ -101,12 +103,6 @@ enum Level {
   EASY
   MEDIUM
   HARD
-}
-
-enum Status {
-  TODO
-  ATTEMPTED
-  SOLVED
 }
 
 enum Language {
