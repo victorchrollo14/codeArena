@@ -1,4 +1,5 @@
 pika
 docker
 black
+redis
 jurigged

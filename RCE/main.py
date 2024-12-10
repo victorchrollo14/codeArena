@@ -6,6 +6,7 @@ from pprint import pprint
 
 import traceback
 from execution import Execution
+import redis
 
 
 def main():
@@ -37,10 +38,19 @@ def main():
 
             codeinstance.createCode()
             output = codeinstance.run()
-            pprint(output)
             print("\n\n")
 
-            # os.system("rm -rf ./temp_code/*")
+            print("submission_id", submission_id)
+            pprint(output)
+
+            print("writing the output to redis cache...\n ")
+            redis_client = redis.Redis(host="redis", port=6379, db=0)
+            redis_client.set(submission_id, str(output))
+
+            print(
+                "deleting the temp file and acknowledging the message from rabbitmq"
+            )
+            os.system("rm -rf ./temp_code/*")
             ch.basic_ack(delivery_tag=method.delivery_tag)
         except Exception as e:
             print("some error occured", e)
