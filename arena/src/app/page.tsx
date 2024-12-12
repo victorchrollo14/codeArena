@@ -2,18 +2,19 @@ import Link from "next/link";
 import { Button } from "@shadcn/button";
 import { Code2 } from "lucide-react";
 import CodeEditor from "@components/CodeEditorDemo";
+import Features from "@components/Features";
 
 export default function LandingPage() {
   return (
-    <div className=" flex min-h-screen w-screen flex-col bg-[#0F172A]  text-white">
+    <div className="mx-5 flex min-h-screen  flex-col bg-background  text-white">
       {/* Header */}
-      <header className="flex items-center justify-between p-4 bg-[#0F172A] text-white">
+      <header className=" flex items-center justify-between p-4 bg-background text-white">
         {/* Logo Section */}
         <div className="flex items-center">
           <Code2 className="mr-2" />
           <h1 className="text-2xl font-bold">
             <span className="text-white">code</span>
-            <span className="text-[#72ed9d]">Arena</span>
+            <span className="text-primary">Arena</span>
           </h1>
         </div>
 
@@ -21,25 +22,25 @@ export default function LandingPage() {
         <nav className="flex space-x-6">
           <Link
             href="#problems"
-            className="hover:text-[#72ed9d] transition-colors"
+            className="hover:text-primary transition-colors"
           >
             Problems
           </Link>
           <Link
             href="#contests"
-            className="hover:text-[#72ed9d] transition-colors"
+            className="hover:text-primary transition-colors"
           >
             Contests
           </Link>
           <Link
             href="#leaderboard"
-            className="hover:text-[#72ed9d] transition-colors"
+            className="hover:text-primary transition-colors"
           >
             Leaderboard
           </Link>
           <Link
             href="#premium"
-            className="hover:text-[#72ed9d] transition-colors"
+            className="hover:text-primary transition-colors"
           >
             Premium
           </Link>
@@ -49,18 +50,18 @@ export default function LandingPage() {
         <div className="flex space-x-4">
           <Button
             variant="ghost"
-            className="text-white hover:bg-transparent hover:text-[#72ed9d]"
+            className="text-white hover:bg-transparent hover:text-primary"
           >
-            Login
+            Sign in
           </Button>
-          <Button className="bg-[#72ed9d] text-[#4B0082] rounded-full hover:bg-[#72ed9d]/80">
-            Sign Up
+          <Button className="bg-primary text-primary-foreground rounded-full hover:bg-primary/80">
+            Sign up
           </Button>
         </div>
       </header>
-      <main className="flex-1 pb-16">
+      <main className="flex-1 p-4 ">
         <div className="min-h-[90vh] grid gap-8 ">
-          <div className="mt-24 mb-8 flex flex-col items-center justify-center text-center px-4 bg-[#0F172A]">
+          <div className="mt-24 mb-8 flex flex-col items-center justify-center text-center px-4 bg-background]">
             <div className="">
               <p className="text-lg md:text-xl text-gray-400 mb-6">
                 Join thousands of developers competing, learning, and climbing
@@ -78,16 +79,19 @@ export default function LandingPage() {
               </h1>
 
               <Button
-                className="bg-[#72ed9d] text-[#4B0082] px-8 py-6 text-lg rounded-full 
-          hover:bg-[#72ed9d]/80 transition-colors duration-300 "
+                className="bg-primary text-primary-foreground px-8 py-6 text-lg rounded-full 
+          hover:bg-primary/80 transition-colors duration-300 "
               >
-                Start Solving
+                Start Solving Now
               </Button>
             </div>
           </div>{" "}
           <CodeEditor />
         </div>
       </main>
+      <section>
+        <Features />
+      </section>
 
       {/* Footer */}
       <footer className="border-t border-purple-900/50">

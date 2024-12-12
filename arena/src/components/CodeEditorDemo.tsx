@@ -56,9 +56,6 @@ function CodeChallenge() {
         (tc) => tc.id.toString() === activeCase,
       );
       if (currentCase) {
-        const { nums, target } = currentCase.input;
-        // Note: This is a placeholder. In a real app, you'd want
-        // to actually execute the code safely
         const result = `Result: ${JSON.stringify(currentCase.output)}`;
         setRunResult(result);
       }
@@ -84,7 +81,7 @@ function CodeChallenge() {
               <div className="flex space-x-2">
                 <Button
                   onClick={handleRun}
-                  variant="secondary"
+                  variant="default"
                   size="sm"
                   className="flex items-center gap-2"
                 >
