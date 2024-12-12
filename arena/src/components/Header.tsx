@@ -10,6 +10,7 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
 } from "@shadcn/navigation-menu";
+import { useSession } from "next-auth/react";
 
 const navItems = [
   { href: "#problems", label: "Problems" },
@@ -20,6 +21,9 @@ const navItems = [
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const session = useSession();
+  console.log(session);
 
   return (
     <header className="mx-5 sticky top-0 z-50  border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -81,14 +85,20 @@ export function Header() {
                 {item.label}
               </Link>
             ))}
-            <div className="flex flex-col space-y-2">
-              <Button variant="ghost" asChild>
-                <Link href="/auth/login">Sign in</Link>
-              </Button>
-              <Button asChild>
-                <Link href="/auth/register">Sign up</Link>
-              </Button>
-            </div>
+            {session.status === "authenticated" ? (
+              <div className="rounded-full bg-primary text-primary-foreground">
+                {session.data.user?.name?.charAt(0)}
+              </div>
+            ) : (
+              <div className="flex flex-col space-y-2">
+                <Button variant="ghost" asChild>
+                  <Link href="/auth/login">Sign in</Link>
+                </Button>
+                <Button asChild>
+                  <Link href="/auth/register">Sign up</Link>
+                </Button>
+              </div>
+            )}
           </nav>
         </div>
       )}

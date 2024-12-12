@@ -14,16 +14,36 @@ import {
 } from "@shadcn/card";
 import { FaGithub } from "react-icons/fa";
 import Link from "next/link";
+import axios from "axios";
+import { toast } from "@hooks/use-toast";
+import { Toaster } from "@shadcn/toaster";
 
 export default function RegisterPage() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle registration logic here
-    console.log("Register:", { username, email, password });
+
+    try {
+      const res = await axios.post("/api/auth/register", {
+        username: username,
+        email: email,
+        password: password,
+      });
+      console.log(res.data);
+
+      if (res.status === 200) {
+        return toast({
+          title: "user registered successfully",
+          variant: "default",
+        });
+      }
+    } catch (error) {
+      console.log(error);
+      toast({ title: "some error occured, try again", variant: "destructive" });
+    }
   };
 
   return (
@@ -102,6 +122,7 @@ export default function RegisterPage() {
           </p>
         </CardFooter>
       </Card>
+      <Toaster />
     </div>
   );
 }
