@@ -7,7 +7,7 @@ import { Hero } from "@components/Hero";
 
 export default function LandingPage() {
   return (
-    <div className="mx-5 flex min-h-screen  flex-col bg-background  text-white">
+    <div className=" flex min-h-screen  flex-col bg-background  text-white">
       <Header />
       <Hero />
       <CodeEditor />
