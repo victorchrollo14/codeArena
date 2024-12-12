@@ -9,7 +9,7 @@ export function Hero() {
         <div className="flex flex-col items-center  space-y-4 text-center">
           <div className="space-y-2">
             <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-8xl">
-              Master Code. <GradientText>Win Battles.</GradientText>
+              Solve Problems. <GradientText>Master Code.</GradientText>
             </h1>
             <p className="mx-auto max-w-[700px] text-gray-500 md:text-xl dark:text-gray-400">
               Join thousands of developers competing, learning, and climbing the

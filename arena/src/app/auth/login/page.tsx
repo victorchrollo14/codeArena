@@ -14,15 +14,36 @@ import {
 } from "@shadcn/card";
 import { FaGithub } from "react-icons/fa";
 import Link from "next/link";
+import { signIn } from "next-auth/react";
+import { toast } from "@hooks/use-toast";
+import { Toaster } from "@shadcn/toaster";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle registration logic here
-    console.log("Register:", { email, password });
+
+    try {
+      const res = await signIn("credentials", {
+        username: email,
+        password: password,
+        redirect: false,
+      });
+
+      console.log(res?.status);
+      if (res?.status === 401) {
+        return toast({
+          title: "wrong password or username! try again",
+          variant: "destructive",
+        });
+      }
+
+      toast({ title: "logged in successfully", variant: "default" });
+    } catch (error) {
+      toast({ title: "internal server error", variant: "destructive" });
+    }
   };
 
   return (
@@ -94,6 +115,7 @@ export default function LoginPage() {
           </p>
         </CardFooter>
       </Card>
+      <Toaster />
     </div>
   );
 }
