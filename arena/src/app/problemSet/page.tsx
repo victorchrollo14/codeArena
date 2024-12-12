@@ -1,7 +1,7 @@
 import React from "react";
 
-const Login = () => {
-  return <div>login page</div>;
+const ProblemSet = () => {
+  return <div>Page with the list of all problems</div>;
 };
 
-export default Login;
+export default ProblemSet;

@@ -1,94 +1,16 @@
 import Link from "next/link";
-import { Button } from "@shadcn/button";
 import { Code2 } from "lucide-react";
 import CodeEditor from "@components/CodeEditorDemo";
 import Features from "@components/Features";
+import { Header } from "@components/Header";
+import { Hero } from "@components/Hero";
 
 export default function LandingPage() {
   return (
     <div className="mx-5 flex min-h-screen  flex-col bg-background  text-white">
-      {/* Header */}
-      <header className=" flex items-center justify-between p-4 bg-background text-white">
-        {/* Logo Section */}
-        <div className="flex items-center">
-          <Code2 className="mr-2" />
-          <h1 className="text-2xl font-bold">
-            <span className="text-white">code</span>
-            <span className="text-primary">Arena</span>
-          </h1>
-        </div>
-
-        {/* Navigation Links */}
-        <nav className="flex space-x-6">
-          <Link
-            href="#problems"
-            className="hover:text-primary transition-colors"
-          >
-            Problems
-          </Link>
-          <Link
-            href="#contests"
-            className="hover:text-primary transition-colors"
-          >
-            Contests
-          </Link>
-          <Link
-            href="#leaderboard"
-            className="hover:text-primary transition-colors"
-          >
-            Leaderboard
-          </Link>
-          <Link
-            href="#premium"
-            className="hover:text-primary transition-colors"
-          >
-            Premium
-          </Link>
-        </nav>
-
-        {/* Auth Buttons */}
-        <div className="flex space-x-4">
-          <Button
-            variant="ghost"
-            className="text-white hover:bg-transparent hover:text-primary"
-          >
-            Sign in
-          </Button>
-          <Button className="bg-primary text-primary-foreground rounded-full hover:bg-primary/80">
-            Sign up
-          </Button>
-        </div>
-      </header>
-      <main className="flex-1 p-4 ">
-        <div className="min-h-[90vh] grid gap-8 ">
-          <div className="mt-24 mb-8 flex flex-col items-center justify-center text-center px-4 bg-background]">
-            <div className="">
-              <p className="text-lg md:text-xl text-gray-400 mb-6">
-                Join thousands of developers competing, learning, and climbing
-                the ranks in the ultimate coding arena.
-              </p>
-
-              <h1 className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-extrabold mb-8">
-                Master Code.
-                <span
-                  className="bg-gradient-to-r from-pink-500 to-blue-500 
-            text-transparent bg-clip-text"
-                >
-                  Win Battles.
-                </span>
-              </h1>
-
-              <Button
-                className="bg-primary text-primary-foreground px-8 py-6 text-lg rounded-full 
-          hover:bg-primary/80 transition-colors duration-300 "
-              >
-                Start Solving Now
-              </Button>
-            </div>
-          </div>{" "}
-          <CodeEditor />
-        </div>
-      </main>
+      <Header />
+      <Hero />
+      <CodeEditor />
       <section>
         <Features />
       </section>
