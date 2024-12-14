@@ -1,5 +1,4 @@
 import { serverEnv } from "@config/environ";
-import { PrismaClient, User } from "@prisma/client";
 import type { Session } from "next-auth";
 import GithubProvider from "next-auth/providers/github";
 import Credentials from "next-auth/providers/credentials";
@@ -57,6 +56,7 @@ export const authOptions = {
             const isMatch = await bcrypt.compare(password, user?.password);
 
             if (!isMatch) throw new Error("Incorrect Password! Try again");
+            console.log("password matches");
             return {
               id: user.id,
               email: user.email,

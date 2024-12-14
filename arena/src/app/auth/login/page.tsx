@@ -17,21 +17,29 @@ import Link from "next/link";
 import { signIn } from "next-auth/react";
 import { toast } from "@hooks/use-toast";
 import { Toaster } from "@shadcn/toaster";
+import { cn } from "lib/utils";
+import { Loader2 } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [pending, setPending] = useState(false);
+  const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     try {
+      setPending(true);
       const res = await signIn("credentials", {
         username: email,
         password: password,
         redirect: false,
       });
 
+      setPending(false);
+      console.log(res);
       console.log(res?.status);
       if (res?.status === 401) {
         return toast({
@@ -39,9 +47,11 @@ export default function LoginPage() {
           variant: "destructive",
         });
       }
-
       toast({ title: "logged in successfully", variant: "default" });
-    } catch (error) {
+      setTimeout(() => router.push("/"), 1000);
+    } catch (error: any) {
+      console.log(error);
+      setPending(false);
       toast({ title: "internal server error", variant: "destructive" });
     }
   };
@@ -80,7 +90,8 @@ export default function LoginPage() {
                 required
               />
             </div>
-            <Button type="submit" className="w-full">
+            <Button type="submit" className={cn("w-full")}>
+              {pending && <Loader2 className="animate-spin" />}
               login
             </Button>
           </form>
