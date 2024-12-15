@@ -14,7 +14,7 @@ import { signOut, useSession } from "next-auth/react";
 import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
 
 const navItems = [
-  { href: "#problems", label: "Problems" },
+  { href: "/problems", label: "Problems" },
   { href: "#contests", label: "Contests" },
   { href: "#leaderboard", label: "Leaderboard" },
   { href: "#premium", label: "Premium" },
@@ -61,7 +61,7 @@ export function Header() {
             </Button>
             <Avatar className="h-7 w-7 ">
               <AvatarImage
-                src="https://github.com/shadcn.png"
+                src="/shinobi.jpg"
                 alt="@shadcn"
                 className="rounded-full"
               />
