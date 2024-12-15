@@ -120,7 +120,7 @@ export function Header() {
             ))}
             {session.status === "authenticated" ? (
               <div className="rounded-full bg-primary text-primary-foreground">
-                {session.data.user?.name?.charAt(0)}
+                {session.data.user?.email?.charAt(0)}
               </div>
             ) : (
               <div className="flex flex-col space-y-2">

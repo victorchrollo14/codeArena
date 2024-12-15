@@ -1,4 +1,4 @@
-const problems = [
+export const problems = [
   {
     title: "Climbing Stairs",
     description:
@@ -382,5 +382,3 @@ const problems = [
     ],
   },
 ];
-
-module.exports = { problems };

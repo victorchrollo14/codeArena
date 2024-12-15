@@ -4,10 +4,13 @@ import GithubProvider from "next-auth/providers/github";
 import Credentials from "next-auth/providers/credentials";
 import prisma from "./prisma";
 import bcrypt from "bcrypt";
+import { User } from "@prisma/client";
+import { NextAuthOptions } from "next-auth";
+import { JWT } from "next-auth/jwt";
 
 export const authOptions = {
   callbacks: {
-    jwt: ({ token, user }: { token: any; user: Partial<User> }) => {
+    jwt: ({ token, user }: { token: JWT; user: any }) => {
       if (user) token.user = user;
       return token;
     },
@@ -72,4 +75,4 @@ export const authOptions = {
       },
     }),
   ],
-};
+} satisfies NextAuthOptions;

@@ -1,5 +1,5 @@
-const { PrismaClient } = require("@prisma/client");
-const { problems } = require("./seedData");
+import { PrismaClient } from "@prisma/client";
+import { problems } from "./seedData.mjs";
 
 const prisma = new PrismaClient();
 
