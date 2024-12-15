@@ -111,7 +111,7 @@ enum Level {
 
 enum Language {
   python
-  go
+  golang
   javascript
   typescript
 }
