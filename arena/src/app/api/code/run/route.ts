@@ -4,6 +4,7 @@ import { z } from "zod";
 import { nanoid } from "nanoid";
 import amqplib from "amqplib";
 import { unique } from "next/dist/build/utils";
+import { serverEnv } from "@config/environ";
 
 const RunCodeSchema = z.object({
   lang: z.enum(["python", "javascript", "typescript", "golang"]),
@@ -57,7 +58,7 @@ const POST = async (req: NextRequest) => {
     console.log(queueData);
 
     const queue = "arena_rce_queue";
-    const conn = await amqplib.connect("amqp://localhost");
+    const conn = await amqplib.connect(serverEnv.RABBITMQ_URL);
     const channel = await conn.createChannel();
     channel.sendToQueue(queue, Buffer.from(queueData));
 
