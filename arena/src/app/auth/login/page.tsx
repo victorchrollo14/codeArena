@@ -91,8 +91,8 @@ export default function LoginPage() {
               />
             </div>
             <Button type="submit" className={cn("w-full")}>
-              {pending && <Loader2 className="animate-spin" />}
               login
+              {pending && <Loader2 className="animate-spin" />}
             </Button>
           </form>
           <div className="relative my-4">

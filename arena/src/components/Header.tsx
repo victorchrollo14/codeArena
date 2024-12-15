@@ -27,7 +27,7 @@ export function Header() {
 
   return (
     <header className="px-5 sticky top-0 z-50  border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-16 items-center justify-between">
+      <div className=" flex h-16 items-center justify-between">
         <div className="flex items-center gap-2">
           <Code2 className="h-6 w-6 text-primary" />
           <h1 className="text-2xl font-bold">
@@ -60,11 +60,27 @@ export function Header() {
               Logout
             </Button>
             <Avatar className="h-7 w-7 ">
-              <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+              <AvatarImage
+                src="https://github.com/shadcn.png"
+                alt="@shadcn"
+                className="rounded-full"
+              />
               <AvatarFallback>
                 {session.data.user?.email?.charAt(0)}
               </AvatarFallback>
             </Avatar>
+            <Button
+              variant="outline"
+              size="icon"
+              className="md:hidden"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+            >
+              {isMenuOpen ? (
+                <X className="h-4 w-4" />
+              ) : (
+                <Menu className="h-4 w-4" />
+              )}
+            </Button>
           </div>
         ) : (
           <div className="flex items-center gap-4">

@@ -9,3 +9,7 @@ fi
 if [[ $1 == 'generate' ]]; then
   pnpm prisma generate --schema ./src/prisma/schema.prisma
 fi
+
+if [[ $1 == 'studio' ]]; then
+  pnpm dlx prisma studio --schema ./src/prisma/schema.prisma &
+fi

@@ -33,20 +33,22 @@ model User {
 }
 
 model Problem {
-  id           Int            @id @default(autoincrement())
-  title        String         @db.VarChar(255)
-  description  String         @db.Text
-  level        Level
-  tags         String[]
-  editorial    String         @db.Text
-  testCases    Json[]
-  memoryLimit  Int // in bytes
-  timeLimit    Int // in seconds 
-  createdAt    DateTime       @default(now())
-  updatedAt    DateTime       @updatedAt
-  Submission   Submission[]
-  Solution     Solution[]
-  codeSnippets CodeSnippets[]
+  id             Int            @id @default(autoincrement())
+  title          String         @db.VarChar(255)
+  description    String         @db.Text
+  level          Level
+  tags           String[]
+  editorial      String         @db.Text
+  testCases      String[]
+  expectedAnswer String[]
+  memoryLimit    Int // in bytes
+  runTimeOut     Int // in seconds
+  compileTimeOut Int // in seconds
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+  Submission     Submission[]
+  Solution       Solution[]
+  codeSnippets   CodeSnippets[]
 }
 
 model Submission {
@@ -102,16 +104,16 @@ model CodeSnippets {
 }
 
 enum Level {
-  EASY
-  MEDIUM
-  HARD
+  easy
+  medium
+  hard
 }
 
 enum Language {
-  PYTHON
-  GO
-  JAVASCRIPT
-  TYPESCRIPT
+  python
+  go
+  javascript
+  typescript
 }
 
 enum SubmissionStatus {
