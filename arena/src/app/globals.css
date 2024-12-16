@@ -70,3 +70,167 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+/* markdown content */
+@layer base {
+  #markdown-content {
+    /* Base text styles */
+    @apply leading-relaxed text-foreground;
+
+    /* Headings */
+    h1 {
+      @apply mb-4 border-b border-border pb-2 text-3xl font-bold text-foreground;
+    }
+
+    h2 {
+      @apply mb-3 mt-6 border-b border-border pb-1 text-2xl font-semibold text-foreground;
+    }
+
+    h3 {
+      @apply mb-3 mt-4 text-xl font-semibold text-foreground;
+    }
+
+    h4 {
+      @apply mb-2 mt-3 text-lg font-medium text-foreground;
+    }
+
+    h5 {
+      @apply mb-2 text-base font-medium text-muted-foreground;
+    }
+
+    h6 {
+      @apply text-sm font-medium text-muted-foreground;
+    }
+
+    /* Paragraph */
+    p {
+      @apply mb-4 text-base;
+    }
+
+    /* Links */
+    a {
+      @apply text-primary underline transition-colors duration-200 hover:text-primary/80;
+    }
+
+    /* Lists */
+    ul,
+    ol {
+      @apply mb-4 pl-5;
+    }
+
+    ul {
+      @apply list-disc;
+    }
+
+    ol {
+      @apply list-decimal;
+    }
+
+    li {
+      @apply mb-2 pl-1;
+    }
+
+    /* Code Blocks */
+    pre {
+      @apply mb-4 overflow-x-auto rounded-lg bg-accent/30 p-4;
+    }
+
+    code {
+      @apply rounded bg-accent/50 px-1 py-0.5 font-mono text-sm;
+    }
+
+    pre > code {
+      @apply bg-transparent p-0;
+    }
+
+    /* Blockquotes */
+    blockquote {
+      @apply mb-4 border-l-4 border-primary bg-accent/20 py-2 pl-4 italic text-muted-foreground;
+    }
+
+    /* Horizontal Rule */
+    hr {
+      @apply my-8 border-t border-border;
+    }
+
+    /* Tables */
+    table {
+      @apply mb-4 w-full border-collapse;
+    }
+
+    th,
+    td {
+      @apply border border-border px-3 py-2;
+    }
+
+    thead {
+      @apply bg-accent/20;
+    }
+
+    /* Images */
+    img {
+      @apply my-4 h-auto max-w-full rounded-lg shadow-md;
+    }
+
+    /* Nested elements */
+    ul ul,
+    ol ol,
+    ul ol,
+    ol ul {
+      @apply my-0 mb-2;
+    }
+
+    /* Emphasis */
+    strong {
+      @apply font-bold text-foreground;
+    }
+
+    em {
+      @apply italic;
+    }
+
+    /* Task Lists */
+    ul.contains-task-list {
+      @apply list-none pl-0;
+    }
+
+    .task-list-item {
+      @apply flex items-center;
+    }
+
+    .task-list-item input[type='checkbox'] {
+      @apply mr-2 rounded text-primary focus:ring-primary;
+    }
+
+    /* Code Highlighting Base */
+    .hljs {
+      @apply bg-transparent;
+    }
+
+    /* Specific Language Highlighting */
+    .language-python,
+    .language-javascript,
+    .language-typescript,
+    .language-jsx,
+    .language-tsx,
+    .language-css,
+    .language-html {
+      @apply mb-4 overflow-x-auto rounded-lg p-4;
+    }
+  }
+
+  /* Responsive Adjustments */
+  @screen sm {
+    #markdown-content {
+      h1 {
+        @apply text-4xl;
+      }
+      h2 {
+        @apply text-3xl;
+      }
+      h3 {
+        @apply text-2xl;
+      }
+    }
+  }
+}

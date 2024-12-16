@@ -5,7 +5,7 @@ if [[ $1 == 'rabbitmq' ]]; then
 fi
 
 if [[ $1 == 'redis' ]]; then
-  docker run -d --name redis --network rce-network -p 6379:6379 -p 8001:8001 redis/redis-stack:latest
+  docker run -d --name redis-db --network rce-network -p 6379:6379 -p 8001:8001 redis/redis-stack:latest
 fi
 
 if [[ $1 == 'build' ]]; then
