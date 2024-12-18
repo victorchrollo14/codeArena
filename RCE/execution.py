@@ -44,7 +44,7 @@ class Execution:
             "expected_answer": expected_answer,
             "total_testcases": len(testcases),
             "total_correct": 0,
-            "runtime_error": None,
+            "runtime_error": "null",
             "code_answer": [],
             "code_output": [],
         }
@@ -72,6 +72,7 @@ class Execution:
 
                 helper_code = textwrap.dedent(
                     """
+                    from typing import List
                     import ast
                     
                     class ListNode:

@@ -45,7 +45,7 @@ def main():
 
             print("writing the output to redis cache...\n ")
             redis_client = redis.Redis(host="redis-db", port=6379, db=0)
-            redis_client.set(submission_id, str(output))
+            redis_client.set(submission_id, json.dumps(output))
 
             print(
                 "deleting the temp file and acknowledging the message from rabbitmq"

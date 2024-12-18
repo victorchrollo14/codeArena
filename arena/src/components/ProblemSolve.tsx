@@ -1,6 +1,6 @@
 'use client';
 import React, { FC, useRef, useState } from 'react';
-import { CodeSnippets } from '@prisma/client';
+import { CodeSnippets, Language, Level } from '@prisma/client';
 import { ZoomIn } from 'lucide-react';
 import { RiFullscreenFill } from 'react-icons/ri';
 import ReactMarkdown from 'react-markdown';
@@ -15,6 +15,19 @@ import { ProblemDescription } from './ProblemDescription';
 import { Toaster } from '@shadcn/toaster';
 import axios from 'axios';
 import { toast } from '@hooks/use-toast';
+
+export interface FinalResultType {
+  submission_id: string;
+  code_answer: string[];
+  code_output: string[];
+  expected_answer: string[];
+  language: Language;
+  runtime_error: string | null;
+  status_message: string;
+  testcases: string[];
+  total_correct: number;
+  total_testcases: number;
+}
 
 interface Props {
   problemId: string;
@@ -33,10 +46,11 @@ const ProblemSolve: FC<Props> = ({
   codeSnippets,
   testcases,
 }) => {
+  const [results, setResults] = useState<null | FinalResultType>(null);
   const [pending, setPending] = useState<boolean>(false);
   const [activeTestTab, setActiveTestTab] = useState<
     'testcase' | 'test-result'
-  >('testcase');
+  >('test-result');
 
   const codeRef = useRef(
     localStorage.getItem(`python_${problemId}`) || codeSnippets[0]?.code,
@@ -61,15 +75,21 @@ const ProblemSolve: FC<Props> = ({
 
       const submissionId = res.data.submissionId;
 
+      let lastRequestTime = 0;
       while (1) {
-        const response = await axios.post('/api/code/getResults', {
-          submissionId: submissionId,
-        });
-        const results = response.data.results;
-        if (results) {
-          console.log(results);
-          setPending(false);
-          break;
+        const currentTime = Date.now();
+        if (currentTime - lastRequestTime >= 200) {
+          const response = await axios.post('/api/code/getResults', {
+            submissionId: submissionId,
+          });
+          const results = response.data.results;
+          if (results) {
+            console.log(JSON.parse(results));
+            setResults(JSON.parse(results));
+            setPending(false);
+            break;
+          }
+          lastRequestTime = currentTime;
         }
       }
     } catch (error) {
@@ -93,6 +113,7 @@ const ProblemSolve: FC<Props> = ({
         <section className="coding-section flex w-1/2 flex-col gap-2">
           <CodeEditor codeRef={codeRef} problemId={problemId} />
           <ResultSection
+            results={results}
             testcases={testcases}
             pending={pending}
             activeTestTab={activeTestTab}
