@@ -24,6 +24,7 @@ const ProblemSolvepage: FC<Props> = async ({ params }) => {
       editorial={data.editorial}
       testcases={data.testCases}
       codeSnippets={data.codeSnippets}
+      problemId={problemId}
     />
   );
 };
