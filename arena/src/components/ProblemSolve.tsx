@@ -7,6 +7,9 @@ import ReactMarkdown from 'react-markdown';
 import { FaRegCheckSquare } from 'react-icons/fa';
 import { AiTwotoneCode } from 'react-icons/ai';
 import { Button } from '@shadcn/button';
+import Editor from '@monaco-editor/react';
+import { ResultSection } from './ResultSection';
+import { CodeEditor } from './CodeEditor';
 
 interface Props {
   description: string;
@@ -26,20 +29,12 @@ const ProblemSolve: FC<Props> = ({
   const [activeTab, setActiveTab] = useState<
     'description' | 'editorial' | 'submissions' | 'solutions'
   >('description');
-  const [activeTestTab, setActiveTestTab] = useState<
-    'testcase' | 'test result'
-  >('testcase');
 
   const tabs = [
     { label: 'Description', key: 'description' },
     { label: 'Editorial', key: 'editorial' },
     { label: 'Submissions', key: 'submissions' },
     { label: 'Solutions', key: 'solutions' },
-  ];
-
-  const testCaseTabs = [
-    { label: 'testcase', icon: <FaRegCheckSquare /> },
-    { label: 'test result', icon: <AiTwotoneCode /> },
   ];
 
   function normalizeMarkdown(content: string): string {
@@ -121,45 +116,8 @@ const ProblemSolve: FC<Props> = ({
         </div>
       </section>
       <section className="coding-section flex max-h-full min-h-full w-1/2 flex-col gap-2">
-        <div className="code-writing-section h-1/2 rounded-lg border border-border bg-card p-4 hover:border-primary">
-          <div className="mb-4 flex items-center justify-between border-b border-border pb-2">
-            <span>Code </span>
-            <button
-              className="text-muted-foreground transition-colors duration-200 hover:text-primary"
-              aria-label="Zoom In"
-            >
-              <RiFullscreenFill size={20} />
-            </button>
-          </div>
-        </div>
-        <div className="results-section h-1/2 rounded-lg border border-border bg-card p-4 hover:border-primary">
-          <div className="mb-4 flex items-center justify-between gap-1 border-b border-border pb-2">
-            <div className="flex flex-row gap-2">
-              {testCaseTabs.map((tab) => (
-                <Button
-                  key={tab.label}
-                  variant={'outline'}
-                  className={`flex flex-row items-center gap-1 rounded-md px-3 py-1 transition-colors duration-200 ${
-                    activeTestTab === tab.label
-                      ? 'bg-primary text-primary-foreground'
-                      : 'text-muted-foreground hover:bg-accent hover:text-accent-foreground'
-                  } `}
-                  onClick={() => setActiveTestTab(tab.label as any)}
-                >
-                  {tab.icon}
-                  {tab.label}
-                </Button>
-              ))}
-            </div>
-
-            <button
-              className="text-muted-foreground transition-colors duration-200 hover:text-primary"
-              aria-label="Zoom In"
-            >
-              <RiFullscreenFill size={20} />
-            </button>
-          </div>
-        </div>
+        <CodeEditor codeSnippets={codeSnippets} />
+        <ResultSection testcases={testcases} />
       </section>
     </div>
   );

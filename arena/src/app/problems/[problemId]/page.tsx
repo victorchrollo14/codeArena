@@ -1,4 +1,3 @@
-import { Header } from '@components/Header';
 import ProblemsHeader from '@components/ProblemHeader';
 import { ProblemSolve } from '@components/ProblemSolve';
 import { fetchProblem } from 'lib/problemController';
@@ -6,13 +5,13 @@ import { notFound } from 'next/navigation';
 import React, { FC } from 'react';
 
 interface Props {
-  params: {
+  params: Promise<{
     problemId: string;
-  };
+  }>;
 }
 
 const ProblemSolvepage: FC<Props> = async ({ params }) => {
-  const { problemId } = params;
+  const { problemId } = await params;
   console.log(problemId);
   const data = await fetchProblem(Number(problemId));
   console.log(data);
