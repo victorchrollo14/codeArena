@@ -19,15 +19,12 @@ const ProblemSolvepage: FC<Props> = async ({ params }) => {
   if (!data) return notFound();
 
   return (
-    <div className="flex flex-col gap-2">
-      <ProblemsHeader />
-      <ProblemSolve
-        description={data?.description}
-        editorial={data.editorial}
-        testcases={data.testCases}
-        codeSnippets={data.codeSnippets}
-      />
-    </div>
+    <ProblemSolve
+      description={data?.description}
+      editorial={data.editorial}
+      testcases={data.testCases}
+      codeSnippets={data.codeSnippets}
+    />
   );
 };
 

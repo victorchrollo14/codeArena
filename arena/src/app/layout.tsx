@@ -1,15 +1,17 @@
-import type { Metadata } from "next";
-import "./globals.css";
-import { Inter } from "next/font/google";
-import { Providers } from "./providers";
+import type { Metadata } from 'next';
+import './globals.css';
+import { Open_Sans } from 'next/font/google';
+import { Providers } from './providers';
 
-// If loading a variable font, you don't need to specify the font weight
-const inter = Inter({ subsets: ["latin"] });
+const opensans = Open_Sans({
+  subsets: ['latin'],
+  style: ['normal', 'italic'],
+});
 
 export const metadata: Metadata = {
-  title: "CodeArena",
+  title: 'CodeArena',
   description:
-    "The ultimate platform for competitive programming and coding challenges.",
+    'The ultimate platform for competitive programming and coding challenges.',
 };
 
 export default function RootLayout({
@@ -20,7 +22,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <Providers>
-        <body className={`${inter.className} antialiased bg-background`}>
+        <body className={`${opensans.className} bg-background antialiased`}>
           {children}
         </body>
       </Providers>

@@ -1,46 +1,63 @@
 'use client';
 import { Button } from '@shadcn/button';
 import { cn } from 'lib/utils';
-import React, { FC, useState } from 'react';
+import React, { Dispatch, FC, SetStateAction, useState } from 'react';
 import { AiTwotoneCode } from 'react-icons/ai';
 import { FaRegCheckSquare } from 'react-icons/fa';
-import { RiFullscreenFill } from 'react-icons/ri';
+import { RiFullscreenFill, RiLoader4Fill, RiLoader5Fill } from 'react-icons/ri';
+import { VscLoading } from 'react-icons/vsc';
+import ProblemSkeleton from './Skeletons';
 
 interface Props {
   testcases: string[];
+  pending: boolean;
+  activeTestTab: 'testcase' | 'test-result';
+  setActiveTestTab: Dispatch<SetStateAction<'testcase' | 'test-result'>>;
 }
 
-const ResultSection: FC<Props> = ({ testcases }) => {
-  const [activeTestTab, setActiveTestTab] = useState<
-    'testcase' | 'test-result'
-  >('testcase');
+const ResultSection: FC<Props> = ({
+  testcases,
+  pending,
+  activeTestTab,
+  setActiveTestTab,
+}) => {
   const [results, setResults] = useState<null | string>(null);
   const [selectTestCase, setSelectTestCase] = useState<number>(0);
 
-  const testCaseTabs = [
-    { label: 'testcase', icon: <FaRegCheckSquare /> },
-    { label: 'test-result', icon: <AiTwotoneCode /> },
-  ];
-
   return (
-    <div className="results-section h-1/2 rounded-lg border border-border bg-card p-4 hover:border-primary">
-      <div className="results-section-header mb-4 flex items-center justify-between gap-1 border-b border-border pb-2">
+    <div className="results-section flex h-1/2 flex-col gap-3 overflow-auto rounded-lg border border-border bg-card p-4 hover:border-primary">
+      <div className="results-section-header flex items-center justify-between gap-1 border-b border-border pb-2">
         <div className="flex flex-row gap-2">
-          {testCaseTabs.map((tab) => (
-            <Button
-              key={tab.label}
-              variant={'outline'}
-              className={`flex flex-row items-center gap-1 rounded-md px-3 py-1 transition-colors duration-200 ${
-                activeTestTab === tab.label
-                  ? 'bg-primary text-primary-foreground'
-                  : 'text-muted-foreground hover:bg-accent hover:text-accent-foreground'
-              } `}
-              onClick={() => setActiveTestTab(tab.label as any)}
-            >
-              {tab.icon}
-              {tab.label}
-            </Button>
-          ))}
+          <Button
+            variant={'outline'}
+            className={cn(
+              'flex flex-row items-center gap-1 rounded-md px-3 py-1 transition-colors duration-200',
+              activeTestTab === 'testcase'
+                ? 'bg-primary text-primary-foreground'
+                : 'text-muted-foreground hover:bg-accent hover:text-accent-foreground',
+            )}
+            onClick={() => setActiveTestTab('testcase')}
+          >
+            <FaRegCheckSquare />
+            testcase
+          </Button>
+          <Button
+            variant={'outline'}
+            className={cn(
+              'flex flex-row items-center gap-1 rounded-md px-3 py-1 transition-colors duration-200',
+              activeTestTab === 'test-result'
+                ? 'bg-primary text-primary-foreground'
+                : 'text-muted-foreground hover:bg-accent hover:text-accent-foreground',
+            )}
+            onClick={() => setActiveTestTab('test-result')}
+          >
+            {pending ? (
+              <VscLoading className="animate-spin" />
+            ) : (
+              <AiTwotoneCode />
+            )}
+            test-result
+          </Button>
         </div>
 
         <button
@@ -50,7 +67,7 @@ const ResultSection: FC<Props> = ({ testcases }) => {
           <RiFullscreenFill size={20} />
         </button>
       </div>
-      <div className="results-content flex h-5/6 flex-col gap-3">
+      <div className="results-content flex max-h-[250px] flex-1 flex-col gap-3 overflow-scroll">
         {activeTestTab === 'testcase' && (
           <>
             <div className="flex flex-row gap-3">
@@ -68,7 +85,7 @@ const ResultSection: FC<Props> = ({ testcases }) => {
             <div className="flex flex-col gap-3">
               {testcases[selectTestCase].split('\n').map((testcase, index) => (
                 <div key={crypto.randomUUID()} className="flex flex-col gap-3">
-                  {`Arg ${index} = `}
+                  {`Arg ${index + 1} = `}
                   <span className="rounded-lg bg-gray-700 px-4 py-2">
                     {testcase}
                   </span>
@@ -78,13 +95,13 @@ const ResultSection: FC<Props> = ({ testcases }) => {
           </>
         )}
         {activeTestTab === 'test-result' &&
-          (results === null ? (
+          results === null &&
+          pending === false && (
             <div className="flex h-full items-center justify-center">
               <span className="text-accent">you must run the code first </span>
             </div>
-          ) : (
-            <div>{results}</div>
-          ))}
+          )}
+        {activeTestTab === 'test-result' && pending && <ProblemSkeleton />}
       </div>
     </div>
   );
