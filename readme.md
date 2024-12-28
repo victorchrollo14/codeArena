@@ -1,6 +1,12 @@
 # CodeArena
 
-building an application similar to leetcode end to end
+an application similar to leetcode end to end.
+
+## main components
+- next.js for the frontend and backend.
+- rabbitmq as a message queue.
+- code execution engine in python that uses docker out of docker approach (https://medium.com/@blogs4devs/implementing-a-remote-code-execution-engine-from-scratch-4a765a3c7303).
+- redis to cache the results after execution, then the next.js app reads from the cache and displays it to the user.
 
 ## deploying in k8s
 
@@ -11,6 +17,9 @@ building an application similar to leetcode end to end
   data won't be lost;
 - worker pods (including horizontal pod scaling)
 - a domain name and ssl certificate for the load balancer
+
+  ![k8s-architecture-codearena](https://github.com/user-attachments/assets/c5edaa0e-ae4b-49a8-a167-0bcc35bf291d)
+
 
 ## challenges deploying on k8s
 
