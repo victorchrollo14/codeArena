@@ -1,23 +1,23 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import Link from "next/link";
-import { Code2, Menu, X } from "lucide-react";
-import { Button } from "@shadcn/button";
+import { useState } from 'react';
+import Link from 'next/link';
+import { Code2, Menu, X } from 'lucide-react';
+import { Button } from '@shadcn/button';
 import {
   NavigationMenu,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
-} from "@shadcn/navigation-menu";
-import { signOut, useSession } from "next-auth/react";
-import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
+} from '@shadcn/navigation-menu';
+import { signOut, useSession } from 'next-auth/react';
+import { Avatar, AvatarFallback, AvatarImage } from '@radix-ui/react-avatar';
 
 const navItems = [
-  { href: "/problems", label: "Problems" },
-  { href: "#contests", label: "Contests" },
-  { href: "#leaderboard", label: "Leaderboard" },
-  { href: "#premium", label: "Premium" },
+  { href: '/problems', label: 'Problems' },
+  { href: '#contests', label: 'Contests' },
+  { href: '#leaderboard', label: 'Leaderboard' },
+  { href: '#premium', label: 'Premium' },
 ];
 
 export function Header() {
@@ -26,8 +26,8 @@ export function Header() {
   const session = useSession();
 
   return (
-    <header className="px-5 sticky top-0 z-50  border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className=" flex h-16 items-center justify-between">
+    <header className="sticky top-0 z-50 border-b bg-background/95 px-5 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <div className="flex h-16 items-center justify-between">
         <div className="flex items-center gap-2">
           <Code2 className="h-6 w-6 text-primary" />
           <h1 className="text-2xl font-bold">
@@ -50,20 +50,20 @@ export function Header() {
             ))}
           </NavigationMenuList>
         </NavigationMenu>
-        {session.status === "authenticated" ? (
+        {session.status === 'authenticated' ? (
           <div className="flex items-center gap-4">
             <Button
               className=""
-              variant={"destructive"}
+              variant={'destructive'}
               onClick={() => signOut()}
             >
               Logout
             </Button>
-            <Avatar className="h-7 w-7 ">
+            <Avatar className="">
               <AvatarImage
-                src="/shinobi.jpg"
+                src="/barca.jpg"
                 alt="@shadcn"
-                className="rounded-full"
+                className="h-8 w-8 rounded-full border border-white"
               />
               <AvatarFallback>
                 {session.data.user?.email?.charAt(0)}
@@ -118,7 +118,7 @@ export function Header() {
                 {item.label}
               </Link>
             ))}
-            {session.status === "authenticated" ? (
+            {session.status === 'authenticated' ? (
               <div className="rounded-full bg-primary text-primary-foreground">
                 {session.data.user?.email?.charAt(0)}
               </div>

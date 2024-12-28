@@ -64,11 +64,11 @@ const ProblemsHeader: FC<Props> = ({ pending, runCode }) => {
       </div>
       <div className="profile-section">
         {session.status === 'authenticated' && (
-          <Avatar className="h-7 w-7">
+          <Avatar className="">
             <AvatarImage
-              src="/shinobi.jpg"
+              src="/barca.jpg"
               alt="@shadcn"
-              className="rounded-full"
+              className="h-8 w-8 rounded-full border border-white"
             />
             <AvatarFallback>
               {session?.data?.user?.email?.charAt(0)}
