@@ -1,0 +1,9 @@
+*.log
+.git
+.env
+.DS_Store
+LeetCode-DB
+__pycache__
+dataexamples
+rabbimqExamples
+
