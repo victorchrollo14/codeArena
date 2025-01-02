@@ -2,6 +2,8 @@ import ast
 import textwrap
 import docker
 import subprocess
+import os
+from dotenv import load_dotenv
 
 code_output_format = {
     "submission_id": "some_job_id",
@@ -12,6 +14,8 @@ code_output_format = {
     "total_testcases": 3,
     "total_correct": 3,
 }
+load_dotenv()
+file_mount = os.getenv("FILE_MOUNT_URL")
 
 
 class Execution:
@@ -36,7 +40,7 @@ class Execution:
         self.compile_timeout = compile_timeout
         self.run_timeout = run_timeout
         self.memory_limit = memory_limit
-        self.fileMount = "/mnt/harddrive/100xdevs/codeArena/RCE/temp_code/"
+        self.file_mount = file_mount if file_mount else "/temp_code/"
         self.output = {
             "submission_id": submission_id,
             "language": language,
@@ -50,7 +54,7 @@ class Execution:
         }
 
     def clean_up(self):
-        subprocess.run(["rm", "-rf", "./temp_code/*"])
+        subprocess.run(["rm", "-rf", f"./temp_code/{self.submission_id}"])
 
     def createCode(self):
         match self.language:
@@ -133,8 +137,16 @@ class Execution:
                     f"{helper_code}\n\n{self.code}\n{running_testcases}"
                 )
 
+                print(self.file_mount)
+                worker_temp_dir = os.path.join("temp_code", self.submission_id)
+                print("creating the folder", worker_temp_dir)
+                os.makedirs(worker_temp_dir, exist_ok=True)
+
+                print("writing to the file")
                 # Write to file
-                with open("temp_code/index.py", "w") as file:
+                with open(
+                    f"temp_code/{self.submission_id}/index.py", "w"
+                ) as file:
                     file.write(full_code)
             case "javascript":
                 pass
@@ -156,7 +168,7 @@ class Execution:
                     "image": image,
                     "command": "python3 index.py",
                     "volumes": {
-                        f"{self.fileMount}": {
+                        f"{self.file_mount}/{self.submission_id}": {
                             "bind": "/temp_code/",
                             "mode": "ro",
                         }

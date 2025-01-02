@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 
 if [[ $1 == 'rabbitmq' ]]; then
-  docker run -it --network rce-network --rm --name rabbitmq -d -p 5672:5672 -p 15672:15672 rabbitmq:4.0-management
+  docker run -it --network rce-network --rm --name rabbitmq-service -d -p 5672:5672 -p 15672:15672 rabbitmq:4.0-management
 fi
 
 if [[ $1 == 'redis' ]]; then
-  docker run -d --name redis-db --network rce-network -p 6379:6379 -p 8001:8001 redis/redis-stack:6.2.6-v17
+  docker run -d --name redis-service --network rce-network -p 6379:6379 -p 8001:8001 redis/redis-stack:6.2.6-v17
 fi
 
 if [[ $1 == 'build' ]]; then

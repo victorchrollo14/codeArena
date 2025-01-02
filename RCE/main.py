@@ -36,6 +36,7 @@ def main():
                 memory_limit,
             )
 
+            print("creating the code...")
             codeinstance.createCode()
             output = codeinstance.run()
             print("\n\n")
@@ -44,13 +45,13 @@ def main():
             pprint(output)
 
             print("writing the output to redis cache...\n ")
-            redis_client = redis.Redis(host="redis-db", port=6379, db=0)
+            redis_client = redis.Redis(host="redis-service", port=6379, db=0)
             redis_client.set(submission_id, json.dumps(output))
 
             print(
                 "deleting the temp file and acknowledging the message from rabbitmq"
             )
-            os.system("rm -rf ./temp_code/*")
+            codeinstance.clean_up()
             ch.basic_ack(delivery_tag=method.delivery_tag)
         except Exception as e:
             print("some error occured", e)
@@ -58,7 +59,7 @@ def main():
 
     try:
         connection = pika.BlockingConnection(
-            pika.ConnectionParameters("rabbitmq")
+            pika.ConnectionParameters("rabbitmq-service", 5672)
         )
         channel = connection.channel()
 
