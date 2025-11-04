@@ -37,3 +37,4 @@ an application similar to leetcode end to end.
 1. rewrite using containerd
 2. create a nfs volume, run a nfs server on a ec2 machine,
    install a container over there and mount the docker socket from the ec2 machine on the k8s pod
+3. use kubernetes python sdk, spin up a pod and run the python code in there and get the logs ( this seems better since I'm learning k8s )
