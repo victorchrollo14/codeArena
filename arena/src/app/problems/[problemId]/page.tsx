@@ -1,4 +1,3 @@
-import ProblemsHeader from '@components/ProblemHeader';
 import { ProblemSolve } from '@components/ProblemSolve';
 import { fetchProblem } from 'lib/problemController';
 import { notFound } from 'next/navigation';

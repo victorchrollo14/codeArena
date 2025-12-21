@@ -37,4 +37,29 @@ an application similar to leetcode end to end.
 1. rewrite using containerd
 2. create a nfs volume, run a nfs server on a ec2 machine,
    install a container over there and mount the docker socket from the ec2 machine on the k8s pod
-3. use kubernetes python sdk, spin up a pod and run the python code in there and get the logs ( this seems better since I'm learning k8s )
+
+3. Replace it with k8s-py library that can use trigger cron jobs run it in a seperate pod with limited resources and then get output.
+
+### k8s to-do
+
+K8s practice tasks using your LeetCode clone
+
+- Containerize Next.js, Python runner, RabbitMQ, Redis (separate images).
+
+- Deploy each as a Deployment + Service.
+
+- Use ConfigMaps for envs, Secrets for creds.
+
+- Add Jobs for code execution workers.
+
+- Implement HPA on workers (queue length / CPU).
+
+- Add Ingress for frontend access.
+
+- Persist Redis with PVC.
+
+- Use readiness/liveness probes.
+
+- Add RBAC: workers only access needed resources.
+
+- Package everything with Helm.
