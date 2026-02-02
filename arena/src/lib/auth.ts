@@ -4,7 +4,6 @@ import GithubProvider from "next-auth/providers/github";
 import Credentials from "next-auth/providers/credentials";
 import prisma from "./prisma";
 import bcrypt from "bcrypt";
-import { User } from "@prisma/client";
 import { NextAuthOptions } from "next-auth";
 import { JWT } from "next-auth/jwt";
 
