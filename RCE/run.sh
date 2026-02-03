@@ -1,16 +1,16 @@
 #!/usr/bin/env bash
 
-if ! docker network ls | grep -q 'rce-network'; then
-    echo "creating rce-network..."
-    docker network create rce-network
+if ! docker network ls | grep -q 'codearena-network'; then
+    echo "creating codearena-network..."
+    docker network create codearena-network
 fi
 
 if [[ $1 == 'rabbitmq' ]]; then
-  docker run -it --network rce-network --rm --name rabbitmq-service -d -p 5672:5672 -p 15672:15672 rabbitmq:4.0-management
+  docker run -it --network codearena-network --rm --name rabbitmq-service -d -p 5672:5672 -p 15672:15672 rabbitmq:4.0-management
 fi
 
 if [[ $1 == 'redis' ]]; then
-  docker run -d --name redis-service --network rce-network -p 6379:6379 -p 8001:8001 redis/redis-stack:6.2.6-v17
+  docker run -d --name redis-service --network codearena-network -p 6379:6379 -p 8001:8001 redis/redis-stack:6.2.6-v17
 fi
 
 if [[ $1 == 'build' ]]; then
@@ -18,7 +18,7 @@ if [[ $1 == 'build' ]]; then
 fi
 
 if [[ $1 == 'run' ]]; then  
-  docker run --network rce-network -v ./:/app -v /var/run/docker.sock:/var/run/docker.sock rce-dev:latest
+  docker run --network codearena-network -v ./:/app -v /var/run/docker.sock:/var/run/docker.sock rce-dev:latest
 fi
 
 if [[ $1 == 'build:prod' ]]; then
@@ -26,5 +26,5 @@ if [[ $1 == 'build:prod' ]]; then
 fi
 
 if [[ $1 == 'run:prod' ]]; then
-  docker run --network rce-network -v ./temp_code:/app/temp_code -v /var/run/docker.sock:/var/run/docker.sock rce-prod:latest
+  docker run --network codearena-network -v ./temp_code:/app/temp_code -v /var/run/docker.sock:/var/run/docker.sock rce-prod:latest
 fi

@@ -19,7 +19,7 @@ import {
 } from "@shadcn/table";
 import { Button } from "@shadcn/button";
 import { Input } from "@shadcn/input";
-import { Level } from "@prisma/client";
+import { Level } from "prisma/generated/prisma";
 import Link from "next/link";
 import { Badge } from "@shadcn/badge";
 

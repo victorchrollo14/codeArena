@@ -1,13 +1,8 @@
 'use client';
-import React, { FC, useRef, useState } from 'react';
-import { CodeSnippets, Language, Level } from '@prisma/client';
-import { ZoomIn } from 'lucide-react';
-import { RiFullscreenFill } from 'react-icons/ri';
-import ReactMarkdown from 'react-markdown';
-import { FaRegCheckSquare } from 'react-icons/fa';
-import { AiTwotoneCode } from 'react-icons/ai';
-import { Button } from '@shadcn/button';
-import Editor from '@monaco-editor/react';
+import  { FC, useRef, useState } from 'react';
+
+import { Language, CodeSnippets } from '../prisma/generated/prisma';
+
 import { ResultSection } from './ResultSection';
 import { CodeEditor } from './CodeEditor';
 import ProblemsHeader from './ProblemHeader';

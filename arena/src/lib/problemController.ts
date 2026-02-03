@@ -1,10 +1,11 @@
+import { Level } from "../prisma/generated/prisma";
 import prisma from "./prisma";
 
 const fetchProblems = async () => {
   try {
     const data = await prisma.problem.findMany({
       select: { id: true, title: true, level: true, tags: true },
-    });
+    }) as {id:number, title:string, level:Level, tags:string[]}[];
 
     return data;
   } catch (error) {

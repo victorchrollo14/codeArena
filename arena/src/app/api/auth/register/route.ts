@@ -1,7 +1,7 @@
 import prisma from "lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
 import z from "zod";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 
 const RegisterSchema = z.object({
   username: z.string(),

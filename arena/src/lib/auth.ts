@@ -3,7 +3,7 @@ import type { Session } from "next-auth";
 import GithubProvider from "next-auth/providers/github";
 import Credentials from "next-auth/providers/credentials";
 import prisma from "./prisma";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import { NextAuthOptions } from "next-auth";
 import { JWT } from "next-auth/jwt";
 

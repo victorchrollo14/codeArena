@@ -1,6 +1,5 @@
-import { CodeSnippets } from '@prisma/client';
 import { Button } from '@shadcn/button';
-import React, { FC, useState } from 'react';
+import  { FC, useState } from 'react';
 import { RiFullscreenFill } from 'react-icons/ri';
 import ReactMarkdown from 'react-markdown';
 

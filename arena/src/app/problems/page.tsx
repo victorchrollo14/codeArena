@@ -1,7 +1,6 @@
 import { Header } from '@components/Header';
 import { Question, QuestionList } from '@components/QuestionList';
 import { fetchProblems } from 'lib/problemController';
-import React from 'react';
 
 const ProblemSetPage = async () => {
   const data = await fetchProblems();
