@@ -46,8 +46,6 @@ export const authOptions = {
           const user = await prisma.user.findFirst({
             where: { email: username },
           });
-          console.log(username, password);
-          console.log(user);
 
           if (!user)
             throw new Error(
@@ -58,7 +56,7 @@ export const authOptions = {
             const isMatch = await bcrypt.compare(password, user?.password);
 
             if (!isMatch) throw new Error("Incorrect Password! Try again");
-            console.log("password matches");
+            
             return {
               id: user.id,
               email: user.email,

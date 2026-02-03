@@ -27,7 +27,7 @@ if [[ $1 == 'build' ]]; then
 fi
 
 if [[ $1 == 'run' ]]; then
-  docker run --network codearena-network -v $(pwd):/app -v /app/node_modules -v /app/.next -p 4000:4000 arena-dev:latest
+  docker run --network codearena-network -v $(pwd):/app -p 4000:4000 arena-dev:latest
 fi
 
 if [[ $1 == 'build:prod' ]]; then
