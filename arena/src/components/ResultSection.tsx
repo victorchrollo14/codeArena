@@ -70,7 +70,7 @@ const ResultSection: FC<Props> = ({
           <RiFullscreenFill size={20} />
         </button>
       </div>
-      <div className="results-content flex max-h-[250px] flex-1 flex-col gap-3 overflow-scroll">
+      <div className="results-content flex  flex-1 flex-col gap-3 overflow-scroll">
         {activeTestTab === 'testcase' && (
           <>
             <div className="flex flex-row gap-3">
@@ -120,6 +120,8 @@ interface ResultProps {
 const FormattedResults: FC<ResultProps> = ({ results }) => {
   const [selectResultCase, setSelectResultCase] = useState<number>(0);
   console.log(results.runtime_error);
+
+  console.log("hello")
 
   return (
     <div className="flex flex-col gap-3">
